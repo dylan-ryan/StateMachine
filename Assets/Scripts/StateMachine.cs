@@ -128,6 +128,10 @@ public class StateMachine : MonoBehaviour
 
         agent.SetDestination(lastKnownPlayerPosition);
 
+        if (Vector3.Distance(transform.position, player.position) < detectionDistance)
+        {
+            SetState(EnemyState.Chasing);
+        }
         if (Vector3.Distance(transform.position, lastKnownPlayerPosition) < 1f)
         {
             SetState(EnemyState.Retreating);
@@ -140,17 +144,12 @@ public class StateMachine : MonoBehaviour
 
         if (Vector3.Distance(transform.position, player.position) <= attackDistance)
         {
-            AttackPlayer();
+            Debug.Log("Enemy is attacking the player!");
         }
         else
         {
             SetState(EnemyState.Chasing);
         }
-    }
-
-    void AttackPlayer()
-    {
-        Debug.Log("Enemy is attacking the player!");
     }
 
     void RetreatingUpdate()
